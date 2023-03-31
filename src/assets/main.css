@@ -1,0 +1,17 @@
+@import "./base.css";
+
+#app {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+}
+
+p {
+  color: #667085;
+  font-weight: 500;
+  font-size: 14px;
+}
