@@ -3,6 +3,7 @@ import { RouterLink, RouterView } from "vue-router";
 import HelloWorld from "./components/HelloWorld.vue";
 import Navbar from "./components/Navbar/Navbar.vue";
 import Sidebar from "./components/Sidebar/Sidebar.vue";
+import Metric from "./components/Metric/Metric.vue";
 </script>
 
 <template>
@@ -11,6 +12,7 @@ import Sidebar from "./components/Sidebar/Sidebar.vue";
     <Sidebar />
     <div class="content">
       <Navbar title="Data Gempa" />
+      <Metric />
     </div>
   </main>
   <!-- <header>
@@ -36,9 +38,17 @@ import Sidebar from "./components/Sidebar/Sidebar.vue";
 </template>
 
 <style lang="scss">
+.metric {
+  margin-top: 24px;
+
+  &__list {
+    display: flex;
+    gap: 24px;
+  }
+}
+
 .content {
   padding: 24px;
-
 }
 .decoration {
   position: absolute;
