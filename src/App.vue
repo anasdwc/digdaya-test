@@ -4,6 +4,7 @@ import HelloWorld from "./components/HelloWorld.vue";
 import Navbar from "./components/Navbar/Navbar.vue";
 import Sidebar from "./components/Sidebar/Sidebar.vue";
 import Metric from "./components/Metric/Metric.vue";
+import Table from "./components/Table/Table.vue";
 </script>
 
 <template>
@@ -13,6 +14,7 @@ import Metric from "./components/Metric/Metric.vue";
     <div class="content">
       <Navbar title="Data Gempa" />
       <Metric />
+      <Table />
     </div>
   </main>
   <!-- <header>

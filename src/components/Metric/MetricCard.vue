@@ -28,6 +28,7 @@ defineProps({
   flex-direction: column;
   gap: 16px;
   flex: 1;
+  box-shadow: 0px 4px 30px rgba(26, 28, 33, 0.08);
 
   &__header {
     display: flex;

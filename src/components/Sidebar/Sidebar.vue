@@ -13,14 +13,20 @@ import IconPhone from "../icons/IconPhone.vue";
   <div class="sidebar">
     <div class="sidebar--top">
       <div class="sidebar__brand">
-        <img src="@/assets/logo.svg" alt="" />
+        <img
+          src="@/assets/logo.svg"
+          alt=""
+        />
         <h1>Logo</h1>
       </div>
       <SidebarMenu>
         <SidebarMenuItem title="Dashboard">
           <IconDashboard />
         </SidebarMenuItem>
-        <SidebarMenuItem title="Data Gempa" :isActive="true">
+        <SidebarMenuItem
+          title="Data Gempa"
+          :isActive="true"
+        >
           <IconClipboardWhite />
         </SidebarMenuItem>
         <SidebarMenuItem title="Analisis">
@@ -48,7 +54,7 @@ import IconPhone from "../icons/IconPhone.vue";
 .sidebar {
   background-color: #fff;
   box-shadow: 0px 4px 30px rgba(26, 28, 33, 0.08);
-  height: 100vh;
+  height: 1100px;
   margin: 16px;
   padding: 16px;
   border-radius: 16px;
