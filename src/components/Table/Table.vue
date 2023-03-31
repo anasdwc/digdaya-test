@@ -1,8 +1,10 @@
 <script setup>
-import { inject, onBeforeMount, onMounted } from "vue";
+import { inject, onBeforeMount, onMounted, ref } from "vue";
 import Pagination from "./Pagination.vue";
 
 const dataGempa = inject("dataGempa");
+const toggleDetailSidebar = inject("toggleDetailSidebar");
+const selectedData = ref();
 
 // const descDataGempaByDate = computed(() => {
 //   return dataGempa.value.sort((date1, date2) => {
@@ -11,6 +13,15 @@ const dataGempa = inject("dataGempa");
 //     return date1Formatted.getTime() - date2Formatted.getTime();
 //   });
 // });
+
+function handleClick(coord) {
+  const filterData = dataGempa.value.filter(
+    (data) => coord == data.Coordinates
+  );
+  console.log(filterData);
+  selectedData.value = filterData;
+  toggleDetailSidebar.value = !toggleDetailSidebar.value;
+}
 </script>
 
 <template>
@@ -26,7 +37,10 @@ const dataGempa = inject("dataGempa");
       </tr>
     </thead>
     <tbody class="table__body">
-      <tr v-for="data in dataGempa">
+      <tr
+        v-for="data in dataGempa"
+        @click="() => handleClick(data.Coordinates)"
+      >
         <td>{{ data.Tanggal }}</td>
         <td>
           {{ data.Jam.split(" ")[0].split(":").slice(0, 2).join(":") }} WIB
@@ -61,6 +75,11 @@ const dataGempa = inject("dataGempa");
   td {
     font-size: 14px;
     letter-spacing: 0.005em;
+  }
+
+  tr:hover {
+    background-color: #f3f0ff;
+    cursor: pointer;
   }
 
   th {

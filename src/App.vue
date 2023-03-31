@@ -9,6 +9,7 @@ import Metric from "./components/Metric/Metric.vue";
 import Table from "./components/Table/Table.vue";
 
 const dataGempa = ref();
+const toggleDetailSidebar = ref(false);
 
 // TODO: Add limit and function to sort data
 
@@ -34,6 +35,7 @@ getData();
 
 // Props drilling
 provide("dataGempa", dataGempa);
+provide("toggleDetailSidebar", toggleDetailSidebar);
 </script>
 
 <template>
