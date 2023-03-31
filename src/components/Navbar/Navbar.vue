@@ -27,7 +27,6 @@ defineProps({
   align-items: center;
   justify-content: space-between;
   color: white;
-  padding: 24px;
 
   h2 {
     font-size: 24px;

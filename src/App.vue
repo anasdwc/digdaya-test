@@ -36,6 +36,10 @@ import Sidebar from "./components/Sidebar/Sidebar.vue";
 </template>
 
 <style lang="scss">
+.content {
+  padding: 24px;
+
+}
 .decoration {
   position: absolute;
   width: 100%;
