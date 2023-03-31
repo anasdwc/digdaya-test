@@ -4,6 +4,10 @@ defineProps({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+    required: true,
+  },
 });
 </script>
 
@@ -11,7 +15,7 @@ defineProps({
   <div class="metric__item">
     <div class="metric__item__header">
       <slot></slot>
-      <p>Total Data</p>
+      <p>{{ description }}</p>
     </div>
     <div class="metric__item__body">
       <p>{{ title }}</p>

@@ -1,30 +1,16 @@
 <script setup>
-import { ref } from "vue";
+import { inject, onBeforeMount, onMounted } from "vue";
 import Pagination from "./Pagination.vue";
 
-const dataGempa = ref([]);
+const dataGempa = inject("dataGempa");
 
-// TODO: Add limit and function to sort data
-
-async function getData() {
-  // Check info gempa on local storage
-  const dataGempaLocal = localStorage.getItem("data-gempa");
-  if (dataGempaLocal) {
-    dataGempa.value = JSON.parse(dataGempaLocal);
-    return;
-  }
-
-  // Fetch API from BMKG
-  const res = await fetch("http://localhost:5173/api");
-  const finalData = await res.json();
-
-  dataGempa.value = finalData.Infogempa.gempa;
-
-  // Set to local storage
-  localStorage.setItem("data-gempa", JSON.stringify(finalData.Infogempa.gempa));
-}
-
-getData();
+// const descDataGempaByDate = computed(() => {
+//   return dataGempa.value.sort((date1, date2) => {
+//     let date1Formatted = new Date(date1.DateTime);
+//     let date2Formatted = new Date(date2.DateTime);
+//     return date1Formatted.getTime() - date2Formatted.getTime();
+//   });
+// });
 </script>
 
 <template>
