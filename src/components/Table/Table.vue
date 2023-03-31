@@ -4,7 +4,7 @@ import Pagination from "./Pagination.vue";
 
 const dataGempa = inject("dataGempa");
 const toggleDetailSidebar = inject("toggleDetailSidebar");
-const selectedData = ref();
+const selectedData = inject("selectedData");
 
 // const descDataGempaByDate = computed(() => {
 //   return dataGempa.value.sort((date1, date2) => {
@@ -18,9 +18,9 @@ function handleClick(coord) {
   const filterData = dataGempa.value.filter(
     (data) => coord == data.Coordinates
   );
-  console.log(filterData);
+
   selectedData.value = filterData;
-  toggleDetailSidebar.value = !toggleDetailSidebar.value;
+  toggleDetailSidebar.value = true;
 }
 </script>
 

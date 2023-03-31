@@ -7,9 +7,11 @@ import Navbar from "./components/Navbar/Navbar.vue";
 import Sidebar from "./components/Sidebar/Sidebar.vue";
 import Metric from "./components/Metric/Metric.vue";
 import Table from "./components/Table/Table.vue";
+import DetailSidebar from "./components/DetailSidebar/DetailSidebar.vue";
 
 const dataGempa = ref();
 const toggleDetailSidebar = ref(false);
+const selectedData = ref();
 
 // TODO: Add limit and function to sort data
 
@@ -36,6 +38,7 @@ getData();
 // Props drilling
 provide("dataGempa", dataGempa);
 provide("toggleDetailSidebar", toggleDetailSidebar);
+provide("selectedData", selectedData);
 </script>
 
 <template>
@@ -47,6 +50,11 @@ provide("toggleDetailSidebar", toggleDetailSidebar);
       <Metric />
       <Table />
     </div>
+    <div
+      v-if="toggleDetailSidebar"
+      class="overlay"
+    ></div>
+    <DetailSidebar />
   </main>
   <!-- <header>
     <img
@@ -71,6 +79,16 @@ provide("toggleDetailSidebar", toggleDetailSidebar);
 </template>
 
 <style lang="scss">
+.overlay {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #333843;
+  opacity: 0.25;
+}
+
 .metric {
   margin-top: 24px;
 
