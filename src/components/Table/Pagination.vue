@@ -25,10 +25,15 @@ function handleInputLimit(e) {
   positionPage.value = 1;
 }
 
-function movePages(amount) {
-  let newAmount = amount >= positionPage.value ? 1 : -1;
+function movePages(amount, isButton) {
+  // Jika angka, maka dapat move page dalam jumlah yg banyak
+  let newAmount = amount - positionPage.value;
 
-  console.log(amount, newAmount, positionPage.value);
+  // Jika button, maka stepnya satu
+  if (isButton) {
+    newAmount = amount >= positionPage.value ? 1 : -1;
+  }
+
   let newStartRow = startRow.value + newAmount * rowsPerPage.value;
   if (newStartRow >= 0 && newStartRow < dataGempa.value.length) {
     startRow.value = newStartRow;
@@ -59,7 +64,7 @@ provide("positionPage", positionPage);
     <div class="pagination__nav">
       <PaginationButton
         isButton
-        @move-page="movePages(-Infinity)"
+        @move-page="(page, isButton) => movePages(-Infinity, isButton)"
       >
         <template #icon>
           <img
@@ -71,12 +76,12 @@ provide("positionPage", positionPage);
       <template v-for="(val, idx) in lengthPage">
         <PaginationButton
           :page="idx + 1"
-          @move-page="(page) => movePages(page)"
+          @move-page="(page, isButton) => movePages(page, isButton)"
         />
       </template>
       <PaginationButton
         isButton
-        @move-page="movePages(Infinity)"
+        @move-page="(page, isButton) => movePages(Infinity, isButton)"
       >
         <template #icon>
           <img

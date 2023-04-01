@@ -19,7 +19,7 @@ const isActivePosition = computed(() => positionPage.value == props.page);
 
 <template>
   <button
-    @click="emit('move-page', props.page)"
+    @click="emit('move-page', props.page, props.isButton)"
     class="pagination__nav__number"
     :class="{
       'pagination__nav__number--active': isActivePosition,
