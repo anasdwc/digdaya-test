@@ -1,11 +1,16 @@
 <script setup>
 import { inject, provide, ref } from "vue";
 import PaginationButton from "./PaginationButton.vue";
+import { computed } from "@vue/reactivity";
 
 const rowsPerPage = inject("rowsPerPage");
 const startRow = inject("startRow");
 const dataGempa = inject("dataGempa");
 const positionPage = ref(1);
+
+const lengthPage = computed(() => {
+  return Math.ceil(dataGempa.value.length / rowsPerPage.value);
+});
 
 function handleInputLimit(e) {
   let num = parseInt(e.target.value);
@@ -16,6 +21,8 @@ function handleInputLimit(e) {
   }
 
   rowsPerPage.value = num;
+  startRow.value = 0;
+  positionPage.value = 1;
 }
 
 function movePages(amount) {
@@ -23,7 +30,7 @@ function movePages(amount) {
 
   console.log(amount, newAmount, positionPage.value);
   let newStartRow = startRow.value + newAmount * rowsPerPage.value;
-  if (newStartRow >= 0 && newStartRow <= dataGempa.value.length) {
+  if (newStartRow >= 0 && newStartRow < dataGempa.value.length) {
     startRow.value = newStartRow;
     positionPage.value += newAmount;
   }
@@ -41,7 +48,7 @@ provide("positionPage", positionPage);
           type="number"
           placeholder="10"
           :value="rowsPerPage"
-          @input="handleInputLimit"
+          @change="handleInputLimit"
         />
         <span>
           from
@@ -50,32 +57,38 @@ provide("positionPage", positionPage);
       </p>
     </div>
     <div class="pagination__nav">
-      <button
-        @click="movePages(-1)"
-        class="pagination__nav__button pagination__nav__button--prev"
+      <PaginationButton
+        isButton
+        @move-page="movePages(-Infinity)"
       >
-        <img
-          src="@/assets/left.svg"
-          alt=""
+        <template #icon>
+          <img
+            src="@/assets/left.svg"
+            alt=""
+          />
+        </template>
+      </PaginationButton>
+      <template v-for="(val, idx) in lengthPage">
+        <PaginationButton
+          :page="idx + 1"
+          @move-page="(page) => movePages(page)"
         />
-      </button>
+      </template>
       <PaginationButton
-        :page="1"
-        @move-page="(page) => movePages(page)"
-      />
-      <PaginationButton
-        :page="2"
-        @move-page="(page) => movePages(page)"
-      />
-      <button
+        isButton
+        @move-page="movePages(Infinity)"
+      >
+        <template #icon>
+          <img
+            src="@/assets/right.svg"
+            alt=""
+          />
+        </template>
+      </PaginationButton>
+      <!-- <button
         @click="movePages(1)"
         class="pagination__nav__button pagination__nav__button--next"
-      >
-        <img
-          src="@/assets/right.svg"
-          alt=""
-        />
-      </button>
+      ></button> -->
     </div>
   </div>
 </template>
