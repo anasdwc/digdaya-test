@@ -1,7 +1,14 @@
 <script setup>
-import { inject } from "vue";
+import { inject, onBeforeMount } from "vue";
 
 const toggleDetailSidebar = inject("toggleDetailSidebar");
+const selectedData = inject("selectedData");
+
+let data = null;
+
+onBeforeMount(() => {
+  data = selectedData.value[0];
+});
 
 function closeSidebar() {
   toggleDetailSidebar.value = false;
@@ -9,10 +16,7 @@ function closeSidebar() {
 </script>
 
 <template>
-  <div
-    v-if="toggleDetailSidebar"
-    class="detail"
-  >
+  <div class="detail">
     <div class="detail__header">
       <h3>Detail</h3>
       <button @click="closeSidebar">
@@ -25,46 +29,45 @@ function closeSidebar() {
     <div class="detail__list">
       <div class="detail__item">
         <h4>Tanggal</h4>
-        <p>28 Maret 2023</p>
+        <p>{{ data.Tanggal }}</p>
       </div>
       <div class="detail__item">
         <h4>Jam</h4>
-        <p>03:44 WIB</p>
+        <p>{{ data.Jam.split(" ")[0].split(":").slice(0, 2).join(":") }} WIB</p>
       </div>
       <div class="detail__item">
         <h4>Date Time</h4>
-        <p>2023-03-27T17 : 03:44+00:00</p>
+        <p>{{ data.DateTime }}</p>
       </div>
       <div class="detail__item">
         <h4>Koordinat</h4>
-        <p>3.24, 97.92</p>
+        <p>{{ data.Coordinates.split(",").join(", ") }}</p>
       </div>
       <div class="detail__item">
         <h4>Lintang</h4>
-        <p>3.24 LU</p>
+        <p>{{ data.Lintang }}</p>
       </div>
       <div class="detail__item">
         <h4>Bujur</h4>
-        <p>97.92 BT</p>
+        <p>{{ data.Bujur }}</p>
       </div>
       <div class="detail__item">
         <h4>Magnitudo</h4>
-        <p>2.4</p>
+        <p>{{ data.Magnitude }}</p>
       </div>
       <div class="detail__item">
         <h4>Kedalaman</h4>
-        <p>4 Km</p>
+        <p>{{ data.Kedalaman }}</p>
       </div>
       <div class="detail__item">
         <h4>Wilayah</h4>
         <p>
-          Pusat gempa berada di darat 29 km Tenggara Kutacane - Kab. Aceh
-          Tenggara
+          {{ data.Wilayah }}
         </p>
       </div>
       <div class="detail__item">
         <h4>Dirasakan</h4>
-        <p>II Pasie Raja, Kab. Aceh Selatan</p>
+        <p>{{ data.Dirasakan }}</p>
       </div>
     </div>
   </div>

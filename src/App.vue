@@ -62,7 +62,7 @@ provide("selectedData", selectedData);
       v-if="toggleDetailSidebar"
       class="overlay"
     ></div>
-    <DetailSidebar />
+    <DetailSidebar v-if="toggleDetailSidebar" />
   </main>
   <!-- <header>
     <img
