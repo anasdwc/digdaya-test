@@ -3,6 +3,7 @@ import IconSort from "../icons/IconSort.vue";
 import { inject, onBeforeMount, onMounted, provide, ref } from "vue";
 import Pagination from "./Pagination.vue";
 import { computed } from "@vue/reactivity";
+import SortButton from "./SortButton.vue";
 
 const dataGempa = inject("dataGempa");
 const toggleDetailSidebar = inject("toggleDetailSidebar");
@@ -10,6 +11,9 @@ const selectedData = inject("selectedData");
 
 const rowsPerPage = ref(10);
 const startRow = ref(0);
+const nowSortBy = ref("DateTime");
+const sortAsc = ref(true);
+
 const pageDataGempa = computed(() => {
   return dataGempa.value.slice(
     startRow.value,
@@ -17,15 +21,55 @@ const pageDataGempa = computed(() => {
   );
 });
 
-function ascDataGempaByDate() {
+function sortGempaByDate(asc) {
+  nowSortBy.value = "DateTime";
+
+  if (asc) {
+    return dataGempa.value.sort((date1, date2) => {
+      let date1Formatted = new Date(date1.DateTime);
+      let date2Formatted = new Date(date2.DateTime);
+      sortAsc.value = false;
+      return date1Formatted.getTime() - date2Formatted.getTime();
+    });
+  }
+
   return dataGempa.value.sort((date1, date2) => {
     let date1Formatted = new Date(date1.DateTime);
     let date2Formatted = new Date(date2.DateTime);
-    return date1Formatted.getTime() - date2Formatted.getTime();
+    sortAsc.value = true;
+    return date2Formatted.getTime() - date1Formatted.getTime();
   });
 }
 
-// const descDataGempaByDate = computed(() => {});
+function sortGempaNumber(asc, key) {
+  nowSortBy.value = key;
+
+  if (asc) {
+    return dataGempa.value.sort((data1, data2) => {
+      let data1Formatted = parseFloat(data1[key]);
+      let data2Formatted = parseFloat(data2[key]);
+      sortAsc.value = false;
+      return data2Formatted - data1Formatted;
+    });
+  }
+
+  return dataGempa.value.sort((data1, data2) => {
+    let data1Formatted = parseFloat(data1[key]);
+    let data2Formatted = parseFloat(data2[key]);
+    sortAsc.value = true;
+    return data1Formatted - data2Formatted;
+  });
+}
+
+function sortGempa(asc, key) {
+  if (key == "DateTime") {
+    sortGempaByDate(asc);
+    return;
+  }
+
+  sortGempaNumber(asc, key);
+  return;
+}
 
 function handleClick(coord) {
   const filterData = dataGempa.value.filter(
@@ -38,6 +82,8 @@ function handleClick(coord) {
 
 provide("rowsPerPage", rowsPerPage);
 provide("startRow", startRow);
+provide("sortAsc", sortAsc);
+provide("nowSortBy", nowSortBy);
 </script>
 
 <template>
@@ -47,10 +93,10 @@ provide("startRow", startRow);
         <th>
           <div>
             <p>tanggal</p>
-            <button class="icon-sort">
-              <IconSort class="rotate-icon" />
-              <IconSort class="icon-sort--active" />
-            </button>
+            <SortButton
+              ele="DateTime"
+              @sort-by="(key) => sortGempa(sortAsc, key)"
+            />
           </div>
         </th>
         <th><p>jam</p></th>
@@ -58,19 +104,19 @@ provide("startRow", startRow);
         <th>
           <div>
             <p>magnitudo</p>
-            <button class="icon-sort">
-              <IconSort class="rotate-icon" />
-              <IconSort />
-            </button>
+            <SortButton
+              ele="Magnitude"
+              @sort-by="(key) => sortGempa(sortAsc, key)"
+            />
           </div>
         </th>
         <th>
           <div>
             <p>kedalaman</p>
-            <button class="icon-sort">
-              <IconSort class="rotate-icon" />
-              <IconSort />
-            </button>
+            <SortButton
+              ele="Kedalaman"
+              @sort-by="(key) => sortGempa(sortAsc, key)"
+            />
           </div>
         </th>
         <th>
@@ -142,24 +188,6 @@ provide("startRow", startRow);
       text-align: left;
       color: #858d9d;
       font-weight: 600;
-    }
-
-    .icon-sort {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-
-      &--active path {
-        fill: #333843;
-      }
-
-      .rotate-icon {
-        transform: rotate(180deg);
-      }
-
-      cursor: pointer;
-      background-color: transparent;
-      border: none;
     }
   }
 
