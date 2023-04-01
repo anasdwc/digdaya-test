@@ -1,4 +1,5 @@
 <script setup>
+import IconSort from "../icons/IconSort.vue";
 import { inject, onBeforeMount, onMounted, provide, ref } from "vue";
 import Pagination from "./Pagination.vue";
 import { computed } from "@vue/reactivity";
@@ -47,15 +48,8 @@ provide("startRow", startRow);
           <div>
             <p>tanggal</p>
             <button class="icon-sort">
-              <img
-                class="rotate-icon"
-                src="@/assets/sort.svg"
-                alt=""
-              />
-              <img
-                src="@/assets/sort-active.svg"
-                alt=""
-              />
+              <IconSort class="rotate-icon" />
+              <IconSort class="icon-sort--active" />
             </button>
           </div>
         </th>
@@ -65,15 +59,8 @@ provide("startRow", startRow);
           <div>
             <p>magnitudo</p>
             <button class="icon-sort">
-              <img
-                class="rotate-icon"
-                src="@/assets/sort.svg"
-                alt=""
-              />
-              <img
-                src="@/assets/sort.svg"
-                alt=""
-              />
+              <IconSort class="rotate-icon" />
+              <IconSort />
             </button>
           </div>
         </th>
@@ -81,15 +68,8 @@ provide("startRow", startRow);
           <div>
             <p>kedalaman</p>
             <button class="icon-sort">
-              <img
-                class="rotate-icon"
-                src="@/assets/sort.svg"
-                alt=""
-              />
-              <img
-                src="@/assets/sort.svg"
-                alt=""
-              />
+              <IconSort class="rotate-icon" />
+              <IconSort />
             </button>
           </div>
         </th>
@@ -169,6 +149,10 @@ provide("startRow", startRow);
       flex-direction: column;
       gap: 3px;
 
+      &--active path {
+        fill: #333843;
+      }
+
       .rotate-icon {
         transform: rotate(180deg);
       }
@@ -183,6 +167,7 @@ provide("startRow", startRow);
     padding: 26px 24px;
     font-weight: 500;
     color: #333843;
+    vertical-align: middle;
   }
 }
 </style>
