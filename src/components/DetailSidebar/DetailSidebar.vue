@@ -1,5 +1,5 @@
 <script setup>
-import { inject, onBeforeMount } from "vue";
+import { inject, onBeforeMount, onMounted, onUnmounted } from "vue";
 
 const toggleDetailSidebar = inject("toggleDetailSidebar");
 const selectedData = inject("selectedData");
@@ -8,6 +8,14 @@ let data = null;
 
 onBeforeMount(() => {
   data = selectedData.value[0];
+});
+
+onMounted(() => {
+  document.body.classList.add("noscroll");
+});
+
+onUnmounted(() => {
+  document.body.classList.remove("noscroll");
 });
 
 function closeSidebar() {
