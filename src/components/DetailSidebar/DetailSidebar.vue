@@ -20,6 +20,7 @@ onUnmounted(() => {
 
 function closeSidebar() {
   toggleDetailSidebar.value = false;
+  document.querySelector(".active-row").classList.remove("active-row");
 }
 </script>
 

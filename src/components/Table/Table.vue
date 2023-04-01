@@ -1,5 +1,5 @@
 <script setup>
-import { inject, provide, ref } from "vue";
+import { inject, onUpdated, provide, ref } from "vue";
 import Pagination from "./Pagination.vue";
 import { computed } from "@vue/reactivity";
 import SortButton from "./SortButton.vue";
@@ -70,10 +70,12 @@ function sortGempa(asc, key) {
   return;
 }
 
-function handleClick(coord) {
+function handleClick(e, datetime) {
   const filterData = dataGempa.value.filter(
-    (data) => coord == data.Coordinates
+    (data) => datetime == data.DateTime
   );
+
+  e.target.parentNode.classList.add("active-row");
 
   selectedData.value = filterData;
   toggleDetailSidebar.value = true;
@@ -126,7 +128,7 @@ provide("nowSortBy", nowSortBy);
     <tbody class="table__body">
       <tr
         v-for="(data, index) in pageDataGempa"
-        @click="() => handleClick(data.Coordinates)"
+        @click="(e) => handleClick(e, data.DateTime)"
       >
         <template v-if="index < rowsPerPage">
           <td>{{ data.Tanggal }}</td>
@@ -169,6 +171,10 @@ provide("nowSortBy", nowSortBy);
   tr:hover td {
     background-color: #f3f0ff;
     cursor: pointer;
+  }
+
+  tr.active-row td {
+    background-color: #f3f0ff;
   }
 
   th {
