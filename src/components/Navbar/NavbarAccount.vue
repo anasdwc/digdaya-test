@@ -21,6 +21,7 @@ import IconDown from "../icons/IconDown.vue";
 .nav__account {
   display: flex;
   align-items: center;
+  cursor: pointer;
 
   p {
     font-size: 12px;
