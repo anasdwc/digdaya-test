@@ -16,13 +16,15 @@ const pageDataGempa = computed(() => {
   );
 });
 
-// const descDataGempaByDate = computed(() => {
-//   return dataGempa.value.sort((date1, date2) => {
-//     let date1Formatted = new Date(date1.DateTime);
-//     let date2Formatted = new Date(date2.DateTime);
-//     return date1Formatted.getTime() - date2Formatted.getTime();
-//   });
-// });
+function ascDataGempaByDate() {
+  return dataGempa.value.sort((date1, date2) => {
+    let date1Formatted = new Date(date1.DateTime);
+    let date2Formatted = new Date(date2.DateTime);
+    return date1Formatted.getTime() - date2Formatted.getTime();
+  });
+}
+
+// const descDataGempaByDate = computed(() => {});
 
 function handleClick(coord) {
   const filterData = dataGempa.value.filter(
@@ -41,12 +43,59 @@ provide("startRow", startRow);
   <table class="table">
     <thead class="table__header">
       <tr>
-        <th>tanggal</th>
-        <th>jam</th>
-        <th>coordinates</th>
-        <th>magnitudo</th>
-        <th>kedalaman</th>
-        <th>wilayah</th>
+        <th>
+          <div>
+            <p>tanggal</p>
+            <button class="icon-sort">
+              <img
+                class="rotate-icon"
+                src="@/assets/sort.svg"
+                alt=""
+              />
+              <img
+                src="@/assets/sort-active.svg"
+                alt=""
+              />
+            </button>
+          </div>
+        </th>
+        <th><p>jam</p></th>
+        <th><p>coordinates</p></th>
+        <th>
+          <div>
+            <p>magnitudo</p>
+            <button class="icon-sort">
+              <img
+                class="rotate-icon"
+                src="@/assets/sort.svg"
+                alt=""
+              />
+              <img
+                src="@/assets/sort.svg"
+                alt=""
+              />
+            </button>
+          </div>
+        </th>
+        <th>
+          <div>
+            <p>kedalaman</p>
+            <button class="icon-sort">
+              <img
+                class="rotate-icon"
+                src="@/assets/sort.svg"
+                alt=""
+              />
+              <img
+                src="@/assets/sort.svg"
+                alt=""
+              />
+            </button>
+          </div>
+        </th>
+        <th>
+          <p>wilayah</p>
+        </th>
       </tr>
     </thead>
     <tbody class="table__body">
@@ -92,7 +141,7 @@ provide("startRow", startRow);
     letter-spacing: 0.005em;
   }
 
-  tr:hover {
+  tr:hover td {
     background-color: #f3f0ff;
     cursor: pointer;
   }
@@ -101,9 +150,33 @@ provide("startRow", startRow);
     text-transform: uppercase;
     padding: 18px 24px;
     border-bottom: 1px solid #e0e2e7;
-    text-align: left;
-    color: #858d9d;
-    font-weight: 600;
+    min-width: 120px;
+
+    & > div {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    p {
+      text-align: left;
+      color: #858d9d;
+      font-weight: 600;
+    }
+
+    .icon-sort {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+
+      .rotate-icon {
+        transform: rotate(180deg);
+      }
+
+      cursor: pointer;
+      background-color: transparent;
+      border: none;
+    }
   }
 
   td {

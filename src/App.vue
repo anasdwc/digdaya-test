@@ -2,7 +2,6 @@
 import { RouterLink, RouterView } from "vue-router";
 import HelloWorld from "./components/HelloWorld.vue";
 import { provide, ref } from "vue";
-import { computed } from "@vue/reactivity";
 import Navbar from "./components/Navbar/Navbar.vue";
 import Sidebar from "./components/Sidebar/Sidebar.vue";
 import Metric from "./components/Metric/Metric.vue";
@@ -13,7 +12,8 @@ const dataGempa = ref();
 const toggleDetailSidebar = ref(false);
 const selectedData = ref();
 
-// TODO: Add limit and function to sort data
+// DONE: Add limit
+// TODO: Add function to sort data
 
 async function getData() {
   // Check info gempa on local storage
