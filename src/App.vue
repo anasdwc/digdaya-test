@@ -37,7 +37,6 @@ provide("selectedData", selectedData);
 </script>
 
 <template>
-  <div class="decoration"></div>
   <main class="container">
     <Sidebar />
     <div class="content">
@@ -86,13 +85,7 @@ provide("selectedData", selectedData);
 .content {
   padding: 24px;
 }
-.decoration {
-  position: absolute;
-  width: 100%;
-  height: 152px;
-  background-color: #643dff;
-  z-index: -1;
-}
+
 .container {
   display: grid;
   grid-template-columns: 0.5fr 1.5fr;
