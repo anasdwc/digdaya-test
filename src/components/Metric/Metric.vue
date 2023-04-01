@@ -4,7 +4,7 @@ import IconClipboardPurple from "../icons/IconClipboardPurple.vue";
 import IconTop from "../icons/IconTop.vue";
 import IconBottom from "../icons/IconBottom.vue";
 import IconCalendar from "../icons/IconCalendar.vue";
-import { computed, inject, ref } from "vue";
+import { computed, inject } from "vue";
 
 const dataGempa = inject("dataGempa");
 
@@ -49,7 +49,7 @@ const dataTerbaru = computed(() => {
   <div class="metric">
     <div class="metric__list">
       <MetricCard
-        :title="dataGempa.length"
+        :title="`${dataGempa.length}`"
         description="Total Data"
       >
         <IconClipboardPurple />

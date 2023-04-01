@@ -1,6 +1,5 @@
 <script setup>
-import IconSort from "../icons/IconSort.vue";
-import { inject, onBeforeMount, onMounted, provide, ref } from "vue";
+import { inject, provide, ref } from "vue";
 import Pagination from "./Pagination.vue";
 import { computed } from "@vue/reactivity";
 import SortButton from "./SortButton.vue";
