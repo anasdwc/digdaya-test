@@ -58,8 +58,10 @@ provide("selectedData", selectedData);
     <div
       v-if="toggleDetailSidebar"
       class="overlay"
-    ></div>
-    <DetailSidebar v-if="toggleDetailSidebar" />
+      aria-hidden="false"
+    >
+      <DetailSidebar v-if="toggleDetailSidebar" />
+    </div>
   </main>
   <!-- <header>
     <img
@@ -85,13 +87,10 @@ provide("selectedData", selectedData);
 
 <style lang="scss">
 .overlay {
-  width: 100%;
-  height: 1000px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: #333843;
-  opacity: 0.25;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(51, 56, 57, 0.25);
+  overflow-y: scroll;
 }
 
 .metric {
