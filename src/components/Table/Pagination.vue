@@ -90,10 +90,6 @@ provide("positionPage", positionPage);
           />
         </template>
       </PaginationButton>
-      <!-- <button
-        @click="movePages(1)"
-        class="pagination__nav__button pagination__nav__button--next"
-      ></button> -->
     </div>
   </div>
 </template>
