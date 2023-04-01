@@ -82,6 +82,17 @@ function closeSidebar() {
 </template>
 
 <style lang="scss">
+@keyframes slideIn {
+  from {
+    opacity: 1;
+    transform: translate(400px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
 .detail {
   position: absolute;
   background-color: #fff;
@@ -89,6 +100,7 @@ function closeSidebar() {
   padding: 24px;
   width: 400px;
   height: 1000px;
+  animation: slideIn 0.5s ease;
 
   &__header {
     display: flex;

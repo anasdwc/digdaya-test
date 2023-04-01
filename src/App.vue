@@ -78,11 +78,22 @@ provide("selectedData", selectedData);
 </template>
 
 <style lang="scss">
+@keyframes overlayAni {
+  from {
+    background-color: rgba(51, 56, 57, 0);
+  }
+  to {
+    background-color: rgba(51, 56, 57, 0.25);
+  }
+}
+
 .overlay {
   position: fixed;
   inset: 0;
   background-color: rgba(51, 56, 57, 0.25);
   overflow-y: scroll;
+  overflow-x: hidden;
+  animation: overlayAni 1s ease;
 }
 
 .metric {
