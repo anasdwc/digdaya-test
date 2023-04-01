@@ -1,4 +1,31 @@
-<script setup></script>
+<script setup>
+import { inject, ref } from "vue";
+
+const rowsPerPage = inject("rowsPerPage");
+const startRow = inject("startRow");
+const dataGempa = inject("dataGempa");
+const positionPage = ref(1);
+
+function handleInputLimit(e) {
+  let num = parseInt(e.target.value);
+
+  if (num > 15) {
+    rowsPerPage.value = 15;
+    return;
+  }
+
+  rowsPerPage.value = num;
+}
+
+function movePages(amount) {
+  let newStartRow = startRow.value + amount * rowsPerPage.value;
+  console.log(newStartRow);
+  if (newStartRow >= 0 && newStartRow <= dataGempa.value.length) {
+    startRow.value = newStartRow;
+    positionPage.value += amount;
+  }
+}
+</script>
 
 <template>
   <div class="pagination">
@@ -6,9 +33,10 @@
       <p>
         <span>Show</span>
         <input
-          type="text"
+          type="number"
           placeholder="10"
-          value="10"
+          :value="rowsPerPage"
+          @input="handleInputLimit"
         />
         <span>
           from
@@ -17,22 +45,36 @@
       </p>
     </div>
     <div class="pagination__nav">
-      <div class="pagination__nav__button pagination__nav__button--prev">
+      <button
+        @click="movePages(-1)"
+        class="pagination__nav__button pagination__nav__button--prev"
+      >
         <img
           src="@/assets/left.svg"
           alt=""
         />
-      </div>
-      <div class="pagination__nav__number pagination__nav__number--active">
+      </button>
+      <button
+        @click="movePages(1)"
+        class="pagination__nav__number pagination__nav__number--active"
+      >
         1
-      </div>
-      <div class="pagination__nav__number">2</div>
-      <div class="pagination__nav__button pagination__nav__button--next">
+      </button>
+      <button
+        class="pagination__nav__number"
+        @click="movePages(1)"
+      >
+        2
+      </button>
+      <button
+        @click="movePages(1)"
+        class="pagination__nav__button pagination__nav__button--next"
+      >
         <img
           src="@/assets/right.svg"
           alt=""
         />
-      </div>
+      </button>
     </div>
   </div>
 </template>
@@ -42,6 +84,11 @@
   display: flex;
   justify-content: space-between;
   margin: 24px 0;
+
+  button {
+    border: none;
+    cursor: pointer;
+  }
 
   &__detail {
     p {

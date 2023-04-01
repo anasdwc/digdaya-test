@@ -77,6 +77,7 @@ function closeSidebar() {
   right: 0;
   padding: 24px;
   width: 400px;
+  height: 1000px;
 
   &__header {
     display: flex;

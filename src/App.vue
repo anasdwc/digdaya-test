@@ -35,6 +35,14 @@ async function getData() {
 
 getData();
 
+// if (!toggleDetailSidebar) {
+//   document.body.classList.remove("noscroll");
+// }
+
+// if (toggleDetailSidebar) {
+//   document.body.classList.add("noscroll");
+// }
+
 // Props drilling
 provide("dataGempa", dataGempa);
 provide("toggleDetailSidebar", toggleDetailSidebar);
@@ -81,7 +89,7 @@ provide("selectedData", selectedData);
 <style lang="scss">
 .overlay {
   width: 100%;
-  height: 100vh;
+  height: 1000px;
   position: absolute;
   top: 0;
   left: 0;

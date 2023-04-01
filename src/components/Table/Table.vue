@@ -1,10 +1,20 @@
 <script setup>
-import { inject, onBeforeMount, onMounted, ref } from "vue";
+import { inject, onBeforeMount, onMounted, provide, ref } from "vue";
 import Pagination from "./Pagination.vue";
+import { computed } from "@vue/reactivity";
 
 const dataGempa = inject("dataGempa");
 const toggleDetailSidebar = inject("toggleDetailSidebar");
 const selectedData = inject("selectedData");
+
+const rowsPerPage = ref(10);
+const startRow = ref(0);
+const pageDataGempa = computed(() => {
+  return dataGempa.value.slice(
+    startRow.value,
+    startRow.value + rowsPerPage.value
+  );
+});
 
 // const descDataGempaByDate = computed(() => {
 //   return dataGempa.value.sort((date1, date2) => {
@@ -22,6 +32,9 @@ function handleClick(coord) {
   selectedData.value = filterData;
   toggleDetailSidebar.value = true;
 }
+
+provide("rowsPerPage", rowsPerPage);
+provide("startRow", startRow);
 </script>
 
 <template>
@@ -38,25 +51,27 @@ function handleClick(coord) {
     </thead>
     <tbody class="table__body">
       <tr
-        v-for="data in dataGempa"
+        v-for="(data, index) in pageDataGempa"
         @click="() => handleClick(data.Coordinates)"
       >
-        <td>{{ data.Tanggal }}</td>
-        <td>
-          {{ data.Jam.split(" ")[0].split(":").slice(0, 2).join(":") }} WIB
-        </td>
-        <td>{{ data.Coordinates.split(",").join(", ") }}</td>
-        <td>{{ data.Magnitude }} Mag</td>
-        <td>{{ data.Kedalaman }}</td>
-        <td>
-          {{
-            data.Wilayah.split(/(\d+)/)
-              .slice(-1)[0]
-              .split("km")
-              .slice(-1)[0]
-              .trim()
-          }}
-        </td>
+        <template v-if="index < rowsPerPage">
+          <td>{{ data.Tanggal }}</td>
+          <td>
+            {{ data.Jam.split(" ")[0].split(":").slice(0, 2).join(":") }} WIB
+          </td>
+          <td>{{ data.Coordinates.split(",").join(", ") }}</td>
+          <td>{{ data.Magnitude }} Mag</td>
+          <td>{{ data.Kedalaman }}</td>
+          <td>
+            {{
+              data.Wilayah.split(/(\d+)/)
+                .slice(-1)[0]
+                .split("km")
+                .slice(-1)[0]
+                .trim()
+            }}
+          </td>
+        </template>
       </tr>
     </tbody>
   </table>

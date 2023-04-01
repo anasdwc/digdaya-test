@@ -12,6 +12,10 @@ body {
   background-color: #fbfafc;
 }
 
+.noscroll {
+  overflow: hidden;
+}
+
 p {
   color: #667085;
   font-weight: 500;
