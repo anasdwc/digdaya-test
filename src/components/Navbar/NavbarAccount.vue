@@ -1,5 +1,5 @@
 <script setup>
-import IconItem from "../IconItem.vue";
+import IconItem from "./IconItem.vue";
 import IconDown from "../icons/IconDown.vue";
 </script>
 

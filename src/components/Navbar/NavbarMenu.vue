@@ -1,5 +1,5 @@
 <script setup>
-import IconItem from "../IconItem.vue";
+import IconItem from "./IconItem.vue";
 import IconEnvelope from "../icons/IconEnvelope.vue";
 import IconNotification from "../icons/IconNotification.vue";
 </script>
@@ -9,7 +9,10 @@ import IconNotification from "../icons/IconNotification.vue";
     <IconItem>
       <IconEnvelope />
     </IconItem>
-    <IconItem :isNotification="true" :totalNotification="12">
+    <IconItem
+      :isNotification="true"
+      :totalNotification="12"
+    >
       <IconNotification />
     </IconItem>
   </div>

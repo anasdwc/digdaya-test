@@ -12,7 +12,10 @@ defineProps({
 <template>
   <div class="nav__icon">
     <a href="#">
-      <div v-if="isNotification" class="nav__icon--notification">
+      <div
+        v-if="isNotification"
+        class="nav__icon--notification"
+      >
         <p>{{ totalNotification }}</p>
       </div>
       <slot></slot>
@@ -41,6 +44,7 @@ defineProps({
 
     p {
       font-size: 10px;
+      line-height: 1;
     }
   }
 }

@@ -12,9 +12,6 @@ const dataGempa = ref();
 const toggleDetailSidebar = ref(false);
 const selectedData = ref();
 
-// DONE: Add limit
-// TODO: Add function to sort data
-
 async function getData() {
   // Check info gempa on local storage
   const dataGempaLocal = localStorage.getItem("data-gempa");
