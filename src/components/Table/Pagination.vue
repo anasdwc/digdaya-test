@@ -1,5 +1,6 @@
 <script setup>
-import { inject, ref } from "vue";
+import { inject, provide, ref } from "vue";
+import PaginationButton from "./PaginationButton.vue";
 
 const rowsPerPage = inject("rowsPerPage");
 const startRow = inject("startRow");
@@ -18,13 +19,17 @@ function handleInputLimit(e) {
 }
 
 function movePages(amount) {
-  let newStartRow = startRow.value + amount * rowsPerPage.value;
-  console.log(newStartRow);
+  let newAmount = amount >= positionPage.value ? 1 : -1;
+
+  console.log(amount, newAmount, positionPage.value);
+  let newStartRow = startRow.value + newAmount * rowsPerPage.value;
   if (newStartRow >= 0 && newStartRow <= dataGempa.value.length) {
     startRow.value = newStartRow;
-    positionPage.value += amount;
+    positionPage.value += newAmount;
   }
 }
+
+provide("positionPage", positionPage);
 </script>
 
 <template>
@@ -54,18 +59,14 @@ function movePages(amount) {
           alt=""
         />
       </button>
-      <button
-        @click="movePages(1)"
-        class="pagination__nav__number pagination__nav__number--active"
-      >
-        1
-      </button>
-      <button
-        class="pagination__nav__number"
-        @click="movePages(1)"
-      >
-        2
-      </button>
+      <PaginationButton
+        :page="1"
+        @move-page="(page) => movePages(page)"
+      />
+      <PaginationButton
+        :page="2"
+        @move-page="(page) => movePages(page)"
+      />
       <button
         @click="movePages(1)"
         class="pagination__nav__button pagination__nav__button--next"
