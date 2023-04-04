@@ -1,5 +1,5 @@
 <script setup>
-import { provide, ref } from "vue";
+import { nextTick, provide, ref } from "vue";
 import Navbar from "./components/Navbar/Navbar.vue";
 import Sidebar from "./components/Sidebar/Sidebar.vue";
 import Metric from "./components/Metric/Metric.vue";
@@ -10,7 +10,7 @@ const dataGempa = ref();
 const toggleDetailSidebar = ref(false);
 const selectedData = ref();
 
-async function getData() {
+function getData() {
   // Check info gempa on local storage
   const dataGempaLocal = localStorage.getItem("data-gempa");
   if (dataGempaLocal) {
@@ -19,13 +19,17 @@ async function getData() {
   }
 
   // Fetch API from BMKG
-  const res = await fetch("/api");
-  const finalData = await res.json();
+  nextTick(async () => {
+    const res = await fetch("/api");
+    const finalData = await res.json();
 
-  dataGempa.value = finalData.Infogempa.gempa;
-
-  // Set to local storage
-  localStorage.setItem("data-gempa", JSON.stringify(finalData.Infogempa.gempa));
+    dataGempa.value = finalData.Infogempa.gempa;
+    // Set to local storage
+    localStorage.setItem(
+      "data-gempa",
+      JSON.stringify(finalData.Infogempa.gempa)
+    );
+  });
 }
 
 getData();
