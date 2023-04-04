@@ -20,7 +20,9 @@ function getData() {
 
   // Fetch API from BMKG
   nextTick(async () => {
-    const res = await fetch("/api");
+    const res = await fetch(
+      "https://data.bmkg.go.id/DataMKG/TEWS/gempadirasakan.json"
+    );
     const finalData = await res.json();
 
     dataGempa.value = finalData.Infogempa.gempa;
