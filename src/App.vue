@@ -19,7 +19,7 @@ async function getData() {
   }
 
   // Fetch API from BMKG
-  const res = await fetch("http://localhost:5173/api");
+  const res = await fetch("/api");
   const finalData = await res.json();
 
   dataGempa.value = finalData.Infogempa.gempa;
